@@ -7,6 +7,7 @@ target ‘RX.SwiftExample’ do
    pod 'RxSwift-SwiftyJSON'
    pod 'RxSwiftExt'
    pod 'RxSwift'
+   pod 'RxCocoa'
    pod 'SnapKit'
    pod 'Alamofire'
    pod 'AlamofireImage'
