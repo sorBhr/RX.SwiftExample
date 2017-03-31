@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 class loginAndRegist: UIViewController {
 
     fileprivate let imgBack:UIImageView = {
@@ -16,6 +17,7 @@ class loginAndRegist: UIViewController {
     let loginView:LoginView = {
        LoginView(frame: UIScreen.main.bounds)
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +69,8 @@ class LoginView: UIView {
     
     let E_mail:UILabel = UILabel(font: 13,text: "E-mail")
     let pswlbl:UILabel = UILabel(font: 13,text: "Password")
+    
+    var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         
@@ -134,15 +138,20 @@ class LoginView: UIView {
                 guard let text = self.psw.text else{
                     return
                 }
-                text.characters.count > 0 ? () : self.animation(.editingDidBegin,self.psw,self.pswlbl)
-                })
+                if text.characters.count <= 0 {
+                    self.animation(.editingDidBegin,self.psw,self.pswlbl)
+                }})
+            .disposed(by: disposeBag)
         psw.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext:{[unowned self] in
                 guard let text = self.psw.text else{
                     return
                 }
-                text.characters.count > 0 ? () : self.animation(.editingDidEnd,self.psw,self.pswlbl)
-        })
+                if text.characters.count <= 0 {
+                    self.animation(.editingDidEnd,self.psw,self.pswlbl)
+                }})
+            .disposed(by: disposeBag)
+        
         userName.rx.controlEvent(.editingDidBegin)
             .subscribe(onNext:{[unowned self] (value) in
                 guard let text = self.userName.text else{
@@ -150,19 +159,19 @@ class LoginView: UIView {
                 }
                 text.characters.count > 0 ? () : self.animation(.editingDidBegin,self.userName,self.E_mail)
                 })
+            .disposed(by: disposeBag)
         userName.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext:{[unowned self] in
                 guard let text = self.userName.text else{
                     return
                 }
+                print("userName 执行了")
                 text.characters.count > 0 ? () : self.animation(.editingDidEnd,self.userName,self.E_mail)
                 })
-
-
+            .disposed(by: disposeBag)
         layoutUI()
     }
     //MARK: Animation E-mail、psw label
-    //MARK: layoutSubViews
     private func animation(_ controlEvent: UIControlEvents , _ textFiled:UITextField ,_ label:UILabel){
         if controlEvent ==  .editingDidBegin{
             UIView.animate(withDuration: 0.4, animations: { [unowned self] in
@@ -178,11 +187,10 @@ class LoginView: UIView {
                     make.center.equalTo(textFiled)
                     })
                 self.layoutIfNeeded()
-
             })
         }
     }
-   
+   //MARK: layoutSubViews
     private func layoutUI() -> Void {
     
         //文本框以密码框为基准
@@ -196,7 +204,9 @@ class LoginView: UIView {
             make.left.right.height.equalTo(self.psw)
             make.bottom.equalTo(self.psw.snp.top).offset(-30)
         }
-    
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
     }
 }
 class registView: UIView {
