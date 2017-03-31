@@ -65,6 +65,8 @@ class LoginView: UIView {
         UIButton(type: .custom)
     }()
     
+    let E_mail:UILabel = UILabel(font: 13,text: "E-mail")
+    let pswlbl:UILabel = UILabel(font: 13,text: "Password")
     
     override init(frame: CGRect) {
         
@@ -80,19 +82,22 @@ class LoginView: UIView {
     private func initUI() {
         let title:UILabel = UILabel(text: "AVITAL")
         let subTitle:UILabel = UILabel(font: 13, text: "Mobile UI Kit")
-        let E_mail:UILabel = UILabel(font: 13,text: "E-mail")
-        let psw:UILabel = UILabel(font: 13,text: "Password")
+        
         let lineEmail = UIImageView()
         let linePsw = UIImageView()
         title.font = UIFont.boldSystemFont(ofSize: 20)
         lineEmail.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         linePsw.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        userName.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.psw.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        userName.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.psw.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.addSubview(linePsw)
         self.addSubview(lineEmail)
         self.addSubview(title)
         self.addSubview(subTitle)
         self.addSubview(E_mail)
-        self.addSubview(psw)
+        self.addSubview(pswlbl)
         self.addSubview(facebookBtn)
         self.addSubview(GoogleBtn)
         self.addSubview(registBtn)
@@ -103,7 +108,7 @@ class LoginView: UIView {
         E_mail.snp.makeConstraints {[unowned self] (make) in
             make.center.equalTo(self.userName)
         }
-        psw.snp.makeConstraints {[unowned self] (make) in
+        pswlbl.snp.makeConstraints {[unowned self] (make) in
             make.center.equalTo(self.psw)
         }
         lineEmail.snp.makeConstraints {[unowned self] (make) in
@@ -123,31 +128,62 @@ class LoginView: UIView {
             make.centerX.equalToSuperview()
             make.top.equalTo(title.snp.bottom)
         }
-        userName.rx.controlEvent(.editingDidBegin)
-            .subscribe(onNext:{[unowned self] in
-                UIView.animate(withDuration: 0.3, animations: {
-                    E_mail.snp.remakeConstraints({[unowned self] (make) in
-                        make.left.equalTo(lineEmail)
-                        make.bottom.equalTo(self.userName.snp.top).offset(-8)
-                        })
-                    self.layoutIfNeeded()})
+        psw.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext:{[unowned self] (value) in
+                print("value = \(value)");
+                guard let text = self.psw.text else{
+                    return
+                }
+                text.characters.count > 0 ? () : self.animation(.editingDidBegin,self.psw,self.pswlbl)
                 })
-//        userName.rx.controlEvent(.editingDidEnd)
-//            .subscribe(onNext:{[unowned self] in
-//                UIView.animate(withDuration: 0.8, animations: {
-//                    E_mail.snp.remakeConstraints({[unowned self] (make) in
-//                        make.left.equalTo(lineEmail)
-//                        make.bottom.equalTo(self.userName.snp.top).offset(-10)
-//                        })
-//                    self.layoutIfNeeded()
-//                })
-//                })
+        psw.rx.controlEvent(.editingDidEnd)
+            .subscribe(onNext:{[unowned self] in
+                guard let text = self.psw.text else{
+                    return
+                }
+                text.characters.count > 0 ? () : self.animation(.editingDidEnd,self.psw,self.pswlbl)
+        })
+        userName.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext:{[unowned self] (value) in
+                guard let text = self.userName.text else{
+                    return
+                }
+                text.characters.count > 0 ? () : self.animation(.editingDidBegin,self.userName,self.E_mail)
+                })
+        userName.rx.controlEvent(.editingDidEnd)
+            .subscribe(onNext:{[unowned self] in
+                guard let text = self.userName.text else{
+                    return
+                }
+                text.characters.count > 0 ? () : self.animation(.editingDidEnd,self.userName,self.E_mail)
+                })
 
 
         layoutUI()
     }
+    //MARK: Animation E-mail、psw label
     //MARK: layoutSubViews
-   private func layoutUI() -> Void {
+    private func animation(_ controlEvent: UIControlEvents , _ textFiled:UITextField ,_ label:UILabel){
+        if controlEvent ==  .editingDidBegin{
+            UIView.animate(withDuration: 0.4, animations: { [unowned self] in
+                label.snp.remakeConstraints({(make) in
+                    make.left.equalTo(textFiled)
+                    make.bottom.equalTo(textFiled.snp.top)
+                    })
+                self.layoutIfNeeded()
+            })
+        }else if controlEvent ==  .editingDidEnd {
+            UIView.animate(withDuration: 0.4, animations: { [unowned self] in
+                label.snp.remakeConstraints({(make) in
+                    make.center.equalTo(textFiled)
+                    })
+                self.layoutIfNeeded()
+
+            })
+        }
+    }
+   
+    private func layoutUI() -> Void {
     
         //文本框以密码框为基准
         psw.snp.makeConstraints {(make) in
