@@ -16,9 +16,7 @@ public final class BehaviorSubject<Element>
     , SynchronizedUnsubscribeType
     , Disposable {
     public typealias SubjectObserverType = BehaviorSubject<Element>
-
-    typealias Observers = AnyObserver<Element>.s
-    typealias DisposeKey = Observers.KeyType
+    typealias DisposeKey = Bag<AnyObserver<Element>>.KeyType
     
     /// Indicates whether the subject has any observers
     public var hasObservers: Bool {
@@ -32,8 +30,8 @@ public final class BehaviorSubject<Element>
     
     // state
     private var _isDisposed = false
-    private var _element: Element
-    private var _observers = Observers()
+    private var _value: Element
+    private var _observers = Bag<(Event<Element>) -> ()>()
     private var _stoppedEvent: Event<Element>?
 
     /// Indicates whether the subject has been disposed.
@@ -45,11 +43,7 @@ public final class BehaviorSubject<Element>
     ///
     /// - parameter value: Initial value sent to observers when no other value has been received by the subject yet.
     public init(value: Element) {
-        _element = value
-
-        #if TRACE_RESOURCES
-            _ = Resources.incrementTotal()
-        #endif
+        _value = value
     }
     
     /// Gets the current value or throws an error.
@@ -66,7 +60,7 @@ public final class BehaviorSubject<Element>
                 throw error
             }
             else {
-                return _element
+                return _value
             }
         //}
     }
@@ -80,14 +74,14 @@ public final class BehaviorSubject<Element>
         _lock.unlock()
     }
 
-    func _synchronized_on(_ event: Event<E>) -> Observers {
+    func _synchronized_on(_ event: Event<E>) -> Bag<(Event<Element>) -> ()> {
         if _stoppedEvent != nil || _isDisposed {
-            return Observers()
+            return Bag()
         }
         
         switch event {
-        case .next(let element):
-            _element = element
+        case .next(let value):
+            _value = value
         case .error, .completed:
             _stoppedEvent = event
         }
@@ -118,7 +112,7 @@ public final class BehaviorSubject<Element>
         }
         
         let key = _observers.insert(observer.on)
-        observer.on(.next(_element))
+        observer.on(.next(_value))
     
         return SubscriptionDisposable(owner: self, key: key)
     }
@@ -150,10 +144,4 @@ public final class BehaviorSubject<Element>
         _stoppedEvent = nil
         _lock.unlock()
     }
-
-    #if TRACE_RESOURCES
-        deinit {
-        _ = Resources.decrementTotal()
-        }
-    #endif
 }

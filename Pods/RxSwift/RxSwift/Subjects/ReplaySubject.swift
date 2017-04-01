@@ -15,10 +15,7 @@ public class ReplaySubject<Element>
     , ObserverType
     , Disposable {
     public typealias SubjectObserverType = ReplaySubject<Element>
-
-    typealias Observers = AnyObserver<Element>.s
-    typealias DisposeKey = Observers.KeyType
-
+    
     /// Indicates whether the subject has any observers
     public var hasObservers: Bool {
         _lock.lock()
@@ -37,10 +34,12 @@ public class ReplaySubject<Element>
             _isStopped = _stoppedEvent != nil
         }
     }
-    fileprivate var _observers = Observers()
-
+    fileprivate var _observers = Bag<(Event<Element>) -> ()>()
+    
+    typealias DisposeKey = Bag<AnyObserver<Element>>.KeyType
+    
     func unsubscribe(_ key: DisposeKey) {
-        rxAbstractMethod()
+        abstractMethod()
     }
 
     final var isStopped: Bool {
@@ -51,7 +50,7 @@ public class ReplaySubject<Element>
     ///
     /// - parameter event: Event to send to the observers.
     public func on(_ event: Event<E>) {
-        rxAbstractMethod()
+        abstractMethod()
     }
     
     /// Returns observer interface for subject.
@@ -82,16 +81,6 @@ public class ReplaySubject<Element>
     public static func createUnbounded() -> ReplaySubject<Element> {
         return ReplayAll()
     }
-
-    #if TRACE_RESOURCES
-        override init() {
-            _ = Resources.incrementTotal()
-        }
-
-        deinit {
-            _ = Resources.decrementTotal()
-        }
-    #endif
 }
 
 fileprivate class ReplayBufferBase<Element>
@@ -99,34 +88,34 @@ fileprivate class ReplayBufferBase<Element>
     , SynchronizedUnsubscribeType {
     
     func trim() {
-        rxAbstractMethod()
+        abstractMethod()
     }
     
     func addValueToBuffer(_ value: Element) {
-        rxAbstractMethod()
+        abstractMethod()
     }
     
     func replayBuffer<O: ObserverType>(_ observer: O) where O.E == Element {
-        rxAbstractMethod()
+        abstractMethod()
     }
     
     override func on(_ event: Event<Element>) {
         dispatch(_synchronized_on(event), event)
     }
 
-    func _synchronized_on(_ event: Event<E>) -> Observers {
+    func _synchronized_on(_ event: Event<E>) -> Bag<(Event<Element>) -> ()> {
         _lock.lock(); defer { _lock.unlock() }
         if _isDisposed {
-            return Observers()
+            return Bag()
         }
         
         if _isStopped {
-            return Observers()
+            return Bag()
         }
         
         switch event {
-        case .next(let element):
-            addValueToBuffer(element)
+        case .next(let value):
+            addValueToBuffer(value)
             trim()
             return _observers
         case .error, .completed:

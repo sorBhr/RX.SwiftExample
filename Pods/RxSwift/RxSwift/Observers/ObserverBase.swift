@@ -18,14 +18,17 @@ class ObserverBase<ElementType> : Disposable, ObserverType {
                 onCore(event)
             }
         case .error, .completed:
-            if AtomicCompareAndSwap(0, 1, &_isStopped) {
-                onCore(event)
+
+            if !AtomicCompareAndSwap(0, 1, &_isStopped) {
+                return
             }
+
+            onCore(event)
         }
     }
 
     func onCore(_ event: Event<E>) {
-        rxAbstractMethod()
+        abstractMethod()
     }
 
     func dispose() {
