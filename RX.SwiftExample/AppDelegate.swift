@@ -12,10 +12,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let demo = PractiseSwift()
     //说一句MMP,到底有多难?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let demo = PractiseSwift()
+        
         demo.bufferPractise()
         self.window?.rootViewController = loginAndRegist()
         return true

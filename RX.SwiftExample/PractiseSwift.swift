@@ -51,6 +51,10 @@ class PractiseSwift: NSObject {
         
         publishSubject.on(.next("c"))
         publishSubject.on(.next("d"))
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 3) {
+            publishSubject.onNext("🐱")
+        }
+
 
     }
     //MARK: RAC的ReplaySubject  bufferSize :表示接收历史值的最大个数
@@ -97,7 +101,7 @@ class PractiseSwift: NSObject {
 
     }
 
-    //MARK: buffer (个人觉得应该是在5秒是个限定，只要count = 2就会发送, dispose的时候会发送当前收集的值 注:如果dispose的时候没有收集到值，则会发送一个空的数组)
+    //MARK: buffer (个人觉得应该是在5秒是个限定，只要count = 2就会发送,五秒到了自动发送收集的值(为nil，则发送一个空值), dispose的时候会发送当前收集的值 注:如果dispose的时候没有收集到值，则会发送一个空的数组)
     func bufferPractise() -> Void {
 //        let sequenceToSum = Observable.of(0, 1, 2, 3, 4, 5)
         let publicSubject = PublishSubject<String>()
@@ -110,7 +114,16 @@ class PractiseSwift: NSObject {
             }.addDisposableTo(disposeBag)
         publicSubject.onNext("🐈")
         publicSubject.onNext("🐎")
-        publicSubject.onCompleted()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            publicSubject.onNext("🐱")
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 6) {
+            publicSubject.onNext("🐀")
+            publicSubject.onCompleted()
+           
+        }
+        
+        
 
     }
     //MARK: 没理解
