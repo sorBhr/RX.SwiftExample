@@ -48,8 +48,13 @@ class loginAndRegist: UIViewController {
         loginView.loginBtn.rx
             .tap
             .debounce(0.2, scheduler: MainScheduler.instance)
-            .subscribe(onNext: { (event) in
+            .subscribe(onNext: { [unowned self](event) in
             print("login Action \(event)")
+                
+            self.hero_replaceViewController(with:  RegVController());
+                
+                
+                
                 
         }).disposed(by: disposeBag)
     }

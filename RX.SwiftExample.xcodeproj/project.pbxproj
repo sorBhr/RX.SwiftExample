@@ -19,6 +19,7 @@
 		31B614B71E8D6320004A339C /* Rx.Head.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B614B61E8D6320004A339C /* Rx.Head.swift */; };
 		31B614BF1E8D6445004A339C /* loginAndRegist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B614BE1E8D6445004A339C /* loginAndRegist.swift */; };
 		C1FD04D57319A8C32619A7E5 /* Pods_RX_SwiftExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCCA9E39BD17EF34909C0709 /* Pods_RX_SwiftExample.framework */; };
+		E92E02261E9F613200674BC9 /* RegVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92E02251E9F613200674BC9 /* RegVController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		73A3E52792CCE33D5EB84A62 /* Pods-RX.SwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RX.SwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RX.SwiftExample/Pods-RX.SwiftExample.release.xcconfig"; sourceTree = "<group>"; };
 		9B469CCD02813850448FFD3D /* Pods-RX.SwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RX.SwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RX.SwiftExample/Pods-RX.SwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 		CCCA9E39BD17EF34909C0709 /* Pods_RX_SwiftExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RX_SwiftExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92E02251E9F613200674BC9 /* RegVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegVController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				31B614881E8D5E52004A339C /* AppDelegate.swift */,
 				31B614B61E8D6320004A339C /* Rx.Head.swift */,
+				E92E02251E9F613200674BC9 /* RegVController.swift */,
 				31B614BE1E8D6445004A339C /* loginAndRegist.swift */,
 				31B6148A1E8D5E52004A339C /* ViewController.swift */,
 				3177FDE61E8F73E50091EE29 /* UIExtension.swift */,
@@ -348,6 +351,7 @@
 			files = (
 				31B614B71E8D6320004A339C /* Rx.Head.swift in Sources */,
 				3177FDE71E8F73E50091EE29 /* UIExtension.swift in Sources */,
+				E92E02261E9F613200674BC9 /* RegVController.swift in Sources */,
 				31B614BF1E8D6445004A339C /* loginAndRegist.swift in Sources */,
 				31B6148B1E8D5E52004A339C /* ViewController.swift in Sources */,
 				31B614891E8D5E52004A339C /* AppDelegate.swift in Sources */,
