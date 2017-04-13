@@ -40,7 +40,6 @@ class loginAndRegist: UIViewController {
         self.imgBack.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         view.addSubview(imgBack)
         view.addSubview(loginView)
-        .just
     }
 
     private func binding(){
@@ -273,6 +272,13 @@ class LoginView: UIView {
         pswlbl.font = UIFont.boldSystemFont(ofSize: 15)
         registlbl.font = UIFont.boldSystemFont(ofSize: 15)
         
+    }
+    private func binding(){
+        loginBtn.rx.tap
+            .subscribe(onNext: { (control) in
+                print("点击了")
+                })
+            .disposed(by: disposeBag)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.endEditing(true)

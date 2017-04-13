@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Hero.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,27 +57,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0E99F02AFF0DB795C0BE5968023614D2</key>
+		<key>629FEEF60FB6F0261FE6C77B8FA60020</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>22D7F215EBBD23F81E965F6F61F2C521</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4A3E211676B243619B026D147D272253</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>66D747F2CCD56924E52300C7793A22F7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7D0889F336D092B77F35221739E5EE56</key>
+		<key>6A3A13497DDC53564B89AFF8FD727D1E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,22 +77,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BAEDDF130364F7C7F33B0C00B96CE1DF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD853E4D5F2DF4756C8518BB13810BAF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C4944FEC314D1A66588651D006273ADE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C97E7EFACB394FB1C463CC6D461D8DA7</key>
+		<key>CBE50C0B4DBB2ED9A2B35E3AF358FBE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CBD7D91CCD2A6BFC010B0B4B63F7D5E0</key>
+		<key>D6233FD4F5C4CF17FCB77EB897704EE4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FFA05E77E9093C07D902ADEDC9CA9E92</key>
+		<key>E6820C057F9E00557B6A508C8A99AEAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

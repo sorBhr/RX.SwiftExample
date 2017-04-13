@@ -12,7 +12,7 @@ target ‘RX.SwiftExample’ do
    pod 'Alamofire'
    pod 'AlamofireImage'
    pod 'Kingfisher'
-   pod 'Hero'
+  # pod 'Hero'
   # Pods for RXSwifit
 
 end
