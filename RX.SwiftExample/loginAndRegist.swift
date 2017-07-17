@@ -41,10 +41,6 @@ class loginAndRegist: UIViewController {
         view.addSubview(imgBack)
         
         view.addSubview(loginView)
-<<<<<<< HEAD
-=======
-//        .just
->>>>>>> ba9d34556ad1b732a3210dac186f561a4aad4f39
     }
 
     private func binding(){

@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.4.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - Hero (0.3.6)
   - Kingfisher (3.6.0)
   - RxCocoa (3.3.1):
     - RxSwift (~> 3.3)
@@ -19,6 +20,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
+  - Hero
   - Kingfisher
   - RxCocoa
   - RxSwift
@@ -29,6 +31,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  Hero: d3c6f4dd80cdcdbb339be64e57ae3b5c3ab9938c
   Kingfisher: 300035f9a40634dc9b452d946c9f22250688fecd
   RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
   RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
@@ -37,6 +40,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: ee66d57005450b2a8fdf759a3a795c49524c9569
+PODFILE CHECKSUM: 73067a8f109e0e13765456c684941d6d816ab9bc
 
 COCOAPODS: 1.2.0
